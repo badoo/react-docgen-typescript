@@ -1,9 +1,10 @@
 {
-  "name": "react-docgen-typescript",
+  "name": "@magiclab/react-docgen-typescript",
+  "private": false,
   "version": "1.14.1",
   "description": "",
-  "homepage": "https://github.com/styleguidist/react-docgen-typescript/",
-  "bugs": "https://github.com/styleguidist/react-docgen-typescript/issues",
+  "homepage": "https://github.com/badoo/react-docgen-typescript/",
+  "bugs": "https://github.com/badoo/react-docgen-typescript/issues",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -53,6 +54,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/styleguidist/react-docgen-typescript.git"
+    "url": "https://github.com/badoo/react-docgen-typescript.git"
   }
 }
