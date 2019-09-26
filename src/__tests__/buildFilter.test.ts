@@ -22,7 +22,7 @@ function createProp(
 
 describe('buildFilter', () => {
   describe('default behaviour', () => {
-    it('should skip "children" property if no description is set', () => {
+    test('should skip "children" property if no description is set', () => {
       const prop1 = createProp('prop1', false, undefined, 'prop1 description');
       const prop2 = createProp('prop2', false, undefined, 'prop2 description');
       const children = createProp('children', false, undefined, '');
@@ -34,7 +34,7 @@ describe('buildFilter', () => {
         )
       ).to.eql([prop1, prop2]);
     });
-    it('should not skip "children" property if description is set', () => {
+    test('should not skip "children" property if description is set', () => {
       const prop1 = createProp('prop1', false, undefined, 'prop1 description');
       const prop2 = createProp('prop2', false, undefined, 'prop2 description');
       const children = createProp(
@@ -55,7 +55,7 @@ describe('buildFilter', () => {
 
   describe('static prop filter', () => {
     describe('skipPropsWithName', () => {
-      it('should skip single prop by name', () => {
+      test('should skip single prop by name', () => {
         const prop1 = createProp(
           'prop1',
           false,
@@ -76,7 +76,7 @@ describe('buildFilter', () => {
           [prop1, prop2].filter(prop => filterFn(prop, { name: prop.name }))
         ).to.eql([prop2]);
       });
-      it('should skip multiple props by name', () => {
+      test('should skip multiple props by name', () => {
         const prop1 = createProp(
           'prop1',
           false,
@@ -108,7 +108,7 @@ describe('buildFilter', () => {
     });
 
     describe('skipPropsWithoutDoc', () => {
-      it('should skip children props with no documentation', () => {
+      test('should skip children props with no documentation', () => {
         const prop1 = createProp(
           'prop1',
           false,
@@ -128,7 +128,7 @@ describe('buildFilter', () => {
   });
 
   describe('dynamic prop filter', () => {
-    it('should skip props based on dynamic filter rule', () => {
+    test('should skip props based on dynamic filter rule', () => {
       const prop1 = createProp('foo', false, undefined, 'foo description');
       const prop2 = createProp('bar', false, undefined, 'bar description');
       const prop3 = createProp(
@@ -148,7 +148,7 @@ describe('buildFilter', () => {
       ).to.eql([prop2]);
     });
 
-    it('should get be possible to filter by component name', () => {
+    test('should get be possible to filter by component name', () => {
       const prop1 = createProp('foo', false, undefined, 'foo description');
       const prop2 = createProp('bar', false, undefined, 'bar description');
       const prop3 = createProp(
@@ -168,7 +168,7 @@ describe('buildFilter', () => {
       ).to.eql([prop1]);
     });
 
-    it('should be possible to filter by interface in which prop was declared.', () => {
+    test('should be possible to filter by interface in which prop was declared.', () => {
       const stringType = { name: 'string' };
       const htmlAttributesInterface = {
         fileName: 'node_modules/@types/react/index.d.ts',

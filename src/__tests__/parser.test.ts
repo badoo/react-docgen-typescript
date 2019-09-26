@@ -14,7 +14,7 @@ import { check, checkComponent, fixturePath } from './testUtils';
 describe('parser', () => {
   const children = { type: 'ReactNode', required: false, description: '' };
 
-  it('should parse simple react class component', () => {
+  test('should parse simple react class component', () => {
     check('Column', {
       Column: {
         prop1: { type: 'string', required: false },
@@ -25,7 +25,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse simple react class component with console.log inside', () => {
+  test('should parse simple react class component with console.log inside', () => {
     check('ColumnWithLog', {
       Column: {
         prop1: { type: 'string', required: false },
@@ -36,7 +36,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse simple react class component as default export', () => {
+  test('should parse simple react class component as default export', () => {
     check('ColumnWithDefaultExport', {
       Column: {
         prop1: { type: 'string', required: false },
@@ -47,7 +47,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse mulitple files', () => {
+  test('should parse mulitple files', () => {
     const result = parse([
       fixturePath('Column'),
       fixturePath('ColumnWithDefaultExportOnly')
@@ -63,7 +63,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse simple react class component as default export only', () => {
+  test('should parse simple react class component as default export only', () => {
     check('ColumnWithDefaultExportOnly', {
       ColumnWithDefaultExportOnly: {
         prop1: { type: 'string', required: false },
@@ -74,7 +74,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse simple react class component as default anonymous export', () => {
+  test('should parse simple react class component as default anonymous export', () => {
     check('ColumnWithDefaultAnonymousExportOnly', {
       ColumnWithDefaultAnonymousExportOnly: {
         prop1: { type: 'string', required: false },
@@ -85,7 +85,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse simple react class component with state', () => {
+  test('should parse simple react class component with state', () => {
     check('AppMenu', {
       AppMenu: {
         menu: { type: 'any' }
@@ -93,18 +93,22 @@ describe('parser', () => {
     });
   });
 
-  it('should parse simple react class component with picked properties', () => {
+  test('should parse simple react class component with picked properties', () => {
     // we are not able to get correct descriptions for prop1,prop2
     check('ColumnWithPick', {
       Column: {
-        prop1: { type: 'string', required: false, description: '' },
-        prop2: { type: 'number', description: '' },
+        prop1: {
+          type: 'string',
+          required: false,
+          description: 'prop1 description'
+        },
+        prop2: { type: 'number', description: 'prop2 description' },
         propx: { type: 'number' }
       }
     });
   });
 
-  it('should parse component with props with external type', () => {
+  test('should parse component with props with external type', () => {
     check('ColumnWithPropsWithExternalType', {
       ColumnWithPropsWithExternalType: {
         prop1: { type: 'string', required: false },
@@ -114,7 +118,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse HOCs', () => {
+  test('should parse HOCs', () => {
     check('ColumnHigherOrderComponent', {
       ColumnExternalHigherOrderComponent: {
         prop1: { type: 'string' }
@@ -137,7 +141,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse component with inherited properties HtmlAttributes<any>', () => {
+  test('should parse component with inherited properties HtmlAttributes<any>', () => {
     check(
       'ColumnWithHtmlAttributes',
       {
@@ -159,7 +163,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse component without exported props interface', () => {
+  test('should parse component without exported props interface', () => {
     check('ColumnWithoutExportedProps', {
       Column: {
         prop1: { type: 'string', required: false },
@@ -168,7 +172,13 @@ describe('parser', () => {
     });
   });
 
-  it('should parse functional component exported as const', () => {
+  test('should parse nested types', () => {
+    check('ComponentWithNestedTypes', null, true, null, {
+      shouldExtractNestedDocs: true
+    });
+  });
+
+  test('should parse functional component exported as const', () => {
     check(
       'ConstExport',
       {
@@ -183,7 +193,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse react component with properties defined in external file', () => {
+  test('should parse react component with properties defined in external file', () => {
     check('ExternalPropsComponent', {
       ExternalPropsComponent: {
         prop1: { type: 'string' }
@@ -191,7 +201,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react component with properties extended from an external .tsx file', () => {
+  test('should parse react component with properties extended from an external .tsx file', () => {
     check('ExtendsExternalPropsComponent', {
       ExtendsExternalPropsComponent: {
         prop1: { type: 'number', required: false, description: 'prop1' },
@@ -200,7 +210,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react component with properties defined as type', () => {
+  test('should parse react component with properties defined as type', () => {
     check(
       'FlippableImage',
       {
@@ -213,7 +223,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse react component with const definitions', () => {
+  test('should parse react component with const definitions', () => {
     check('InlineConst', {
       MyComponent: {
         foo: { type: 'any' }
@@ -221,7 +231,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react component that exports a prop type const', () => {
+  test('should parse react component that exports a prop type const', () => {
     check('ExportsPropTypeShape', {
       ExportsPropTypes: {
         foo: { type: 'any' }
@@ -229,7 +239,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react component that exports a prop type thats imported', () => {
+  test('should parse react component that exports a prop type thats imported', () => {
     check('ExportsPropTypeImport', {
       ExportsPropTypes: {
         foo: { type: 'any' }
@@ -238,7 +248,7 @@ describe('parser', () => {
   });
 
   // see issue #132 (https://github.com/styleguidist/react-docgen-typescript/issues/132)
-  it('should determine the parent fileName relative to the project directory', () => {
+  test('should determine the parent fileName relative to the project directory', () => {
     check(
       'ExportsPropTypeImport',
       {
@@ -292,16 +302,16 @@ describe('parser', () => {
       }
     };
 
-    it('should parse defined props', () => {
+    test('should parse defined props', () => {
       check('ComponentWithDefaultProps', expectation);
     });
 
-    it('should parse referenced props', () => {
+    test('should parse referenced props', () => {
       check('ComponentWithReferencedDefaultProps', expectation);
     });
   });
 
-  it('should parse react PureComponent', () => {
+  test('should parse react PureComponent', () => {
     check('PureRow', {
       Row: {
         prop1: { type: 'string', required: false },
@@ -310,7 +320,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react PureComponent - regression test', () => {
+  test('should parse react PureComponent - regression test', () => {
     check(
       'Regression_v0_0_12',
       {
@@ -324,7 +334,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse react functional component', () => {
+  test('should parse react functional component', () => {
     check('Row', {
       Row: {
         prop1: { type: 'string', required: false },
@@ -333,7 +343,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react stateless component', () => {
+  test('should parse react stateless component', () => {
     check('Stateless', {
       Stateless: {
         myProp: { type: 'string' }
@@ -341,7 +351,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react stateless component with intersection props', () => {
+  test('should parse react stateless component with intersection props', () => {
     check('StatelessIntersectionProps', {
       StatelessIntersectionProps: {
         moreProp: { type: 'number' },
@@ -350,7 +360,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react stateless component with external intersection props', () => {
+  test('should parse react stateless component with external intersection props', () => {
     check('StatelessIntersectionExternalProps', {
       StatelessIntersectionExternalProps: {
         myProp: { type: 'string' },
@@ -359,7 +369,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react stateful component with intersection props', () => {
+  test('should parse react stateful component with intersection props', () => {
     check('StatefulIntersectionProps', {
       StatefulIntersectionProps: {
         moreProp: { type: 'number' },
@@ -368,7 +378,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react stateful component with external intersection props', () => {
+  test('should parse react stateful component with external intersection props', () => {
     check('StatefulIntersectionExternalProps', {
       StatefulIntersectionExternalProps: {
         myProp: { type: 'string' },
@@ -377,7 +387,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse react stateful component (wrapped in HOC) with intersection props', () => {
+  test('should parse react stateful component (wrapped in HOC) with intersection props', () => {
     check('HOCIntersectionProps', {
       HOCIntersectionProps: {
         injected: { type: 'boolean' },
@@ -426,11 +436,11 @@ describe('parser', () => {
       }
     };
 
-    it('should parse defined props', () => {
+    test('should parse defined props', () => {
       check('StatelessWithDefaultProps', expectation);
     });
 
-    it('should parse props with shorthands', () => {
+    test('should parse props with shorthands', () => {
       check('StatelessShorthandDefaultProps', {
         StatelessShorthandDefaultProps: {
           onCallback: {
@@ -455,20 +465,20 @@ describe('parser', () => {
       });
     });
 
-    it('supports destructuring', () => {
+    test('supports destructuring', () => {
       check('StatelessWithDestructuredProps', expectation);
     });
 
-    it('supports destructuring for arrow functions', () => {
+    test('supports destructuring for arrow functions', () => {
       check('StatelessWithDestructuredPropsArrow', expectation);
     });
 
-    it('supports typescript 3.0 style defaulted props', () => {
+    test('supports typescript 3.0 style defaulted props', () => {
       check('StatelessWithDefaultPropsTypescript3', expectation);
     });
   });
 
-  it('should parse functional component component defined as function', () => {
+  test('should parse functional component component defined as function', () => {
     check('FunctionDeclaration', {
       Jumbotron: {
         prop1: { type: 'string', required: true }
@@ -476,7 +486,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse functional component component defined as const', () => {
+  test('should parse functional component component defined as const', () => {
     check('FunctionalComponentAsConst', {
       Jumbotron: {
         prop1: { type: 'string', required: true }
@@ -484,7 +494,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse React.SFC component defined as const', () => {
+  test('should parse React.SFC component defined as const', () => {
     check('ReactSFCAsConst', {
       Jumbotron: {
         prop1: { type: 'string', required: true }
@@ -492,7 +502,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse functional component component defined as function as default export', () => {
+  test('should parse functional component component defined as function as default export', () => {
     check('FunctionDeclarationAsDefaultExport', {
       Jumbotron: {
         prop1: { type: 'string', required: true }
@@ -500,7 +510,7 @@ describe('parser', () => {
     });
   });
 
-  it('should parse functional component component defined as const as default export', () => {
+  test('should parse functional component component defined as const as default export', () => {
     check(
       'FunctionalComponentAsConstAsDefaultExport',
       {
@@ -514,7 +524,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse React.SFC component defined as const as default export', () => {
+  test('should parse React.SFC component defined as const as default export', () => {
     check(
       'ReactSFCAsConstAsDefaultExport',
       {
@@ -528,7 +538,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse functional component component defined as const as named export', () => {
+  test('should parse functional component component defined as const as named export', () => {
     check(
       'FunctionalComponentAsConstAsNamedExport',
       {
@@ -542,7 +552,7 @@ describe('parser', () => {
     );
   });
 
-  it('should parse React.SFC component defined as const as named export', () => {
+  test('should parse React.SFC component defined as const as named export', () => {
     check(
       'ReactSFCAsConstAsNamedExport',
       {
@@ -557,42 +567,42 @@ describe('parser', () => {
   });
 
   describe('displayName', () => {
-    it('should be taken from stateless component `displayName` property (using named export)', () => {
+    test('should be taken from stateless component `displayName` property (using named export)', () => {
       const [parsed] = parse(fixturePath('StatelessDisplayName'));
       assert.equal(parsed.displayName, 'StatelessDisplayName');
     });
 
-    it('should be taken from stateful component `displayName` property (using named export)', () => {
+    test('should be taken from stateful component `displayName` property (using named export)', () => {
       const [parsed] = parse(fixturePath('StatefulDisplayName'));
       assert.equal(parsed.displayName, 'StatefulDisplayName');
     });
 
-    it('should be taken from stateless component `displayName` property (using default export)', () => {
+    test('should be taken from stateless component `displayName` property (using default export)', () => {
       const [parsed] = parse(fixturePath('StatelessDisplayNameDefaultExport'));
       assert.equal(parsed.displayName, 'StatelessDisplayNameDefaultExport');
     });
 
-    it('should be taken from stateful component `displayName` property (using default export)', () => {
+    test('should be taken from stateful component `displayName` property (using default export)', () => {
       const [parsed] = parse(fixturePath('StatefulDisplayNameDefaultExport'));
       assert.equal(parsed.displayName, 'StatefulDisplayNameDefaultExport');
     });
 
-    it('should be taken from named export when default export is an HOC', () => {
+    test('should be taken from named export when default export is an HOC', () => {
       const [parsed] = parse(fixturePath('StatelessDisplayNameHOC'));
       assert.equal(parsed.displayName, 'StatelessDisplayName');
     });
 
-    it('should be taken from named export when default export is an HOC', () => {
+    test('should be taken from named export when default export is an HOC', () => {
       const [parsed] = parse(fixturePath('StatefulDisplayNameHOC'));
       assert.equal(parsed.displayName, 'StatefulDisplayName');
     });
 
-    it('should be taken from stateless component folder name if file name is "index"', () => {
+    test('should be taken from stateless component folder name if file name is "index"', () => {
       const [parsed] = parse(fixturePath('StatelessDisplayNameFolder/index'));
       assert.equal(parsed.displayName, 'StatelessDisplayNameFolder');
     });
 
-    it('should be taken from stateful component folder name if file name is "index"', () => {
+    test('should be taken from stateful component folder name if file name is "index"', () => {
       const [parsed] = parse(fixturePath('StatefulDisplayNameFolder/index'));
       assert.equal(parsed.displayName, 'StatefulDisplayNameFolder');
     });
@@ -601,7 +611,7 @@ describe('parser', () => {
   describe('Parser options', () => {
     describe('Property filtering', () => {
       describe('children', () => {
-        it('should ignore property "children" if not explicitly documented', () => {
+        test('should ignore property "children" if not explicitly documented', () => {
           check(
             'Column',
             {
@@ -616,7 +626,7 @@ describe('parser', () => {
           );
         });
 
-        it('should not ignore any property that is documented explicitly', () => {
+        test('should not ignore any property that is documented explicitly', () => {
           check(
             'ColumnWithAnnotatedChildren',
             {
@@ -638,7 +648,7 @@ describe('parser', () => {
       });
 
       describe('propsFilter method', () => {
-        it('should apply filter function and filter components accordingly', () => {
+        test('should apply filter function and filter components accordingly', () => {
           const propFilter: PropFilter = (prop, component) =>
             prop.name !== 'prop1';
           check(
@@ -656,7 +666,7 @@ describe('parser', () => {
           );
         });
 
-        it('should apply filter function and filter components accordingly', () => {
+        test('should apply filter function and filter components accordingly', () => {
           const propFilter: PropFilter = (prop, component) => {
             if (component.name === 'Column') {
               return prop.name !== 'prop1';
@@ -689,7 +699,7 @@ describe('parser', () => {
           );
         });
 
-        it('should allow filtering by parent interface', () => {
+        test('should allow filtering by parent interface', () => {
           const propFilter: PropFilter = (prop, component) => {
             if (prop.parent == null) {
               return true;
@@ -717,7 +727,7 @@ describe('parser', () => {
       });
 
       describe('skipPropsWithName', () => {
-        it('should skip a single property in skipPropsWithName', () => {
+        test('should skip a single property in skipPropsWithName', () => {
           const propFilter = { skipPropsWithName: 'prop1' };
           check(
             'Column',
@@ -734,7 +744,7 @@ describe('parser', () => {
           );
         });
 
-        it('should skip multiple properties in skipPropsWithName', () => {
+        test('should skip multiple properties in skipPropsWithName', () => {
           const propFilter = { skipPropsWithName: ['prop1', 'prop2'] };
           check(
             'Column',
@@ -752,7 +762,7 @@ describe('parser', () => {
       });
 
       describe('skipPropsWithoutDoc', () => {
-        it('should skip a properties without documentation', () => {
+        test('should skip a properties without documentation', () => {
           const propFilter = { skipPropsWithoutDoc: false };
           check(
             'ColumnWithUndocumentedProps',
@@ -771,7 +781,7 @@ describe('parser', () => {
     });
 
     describe('Extracting literal values from enums', () => {
-      it('extracts literal values from enum', () => {
+      test('extracts literal values from enum', () => {
         check(
           'ExtractLiteralValuesFromEnum',
           {
@@ -806,7 +816,7 @@ describe('parser', () => {
   });
 
   describe('withCustomConfig', () => {
-    it('should accept tsconfigs that typescript accepts', () => {
+    test('should accept tsconfigs that typescript accepts', () => {
       assert.ok(
         withCustomConfig(
           // need to navigate to root because tests run on compiled tests
@@ -819,7 +829,7 @@ describe('parser', () => {
   });
 
   describe('parseWithProgramProvider', () => {
-    it('should accept existing ts.Program instance', () => {
+    test('should accept existing ts.Program instance', () => {
       let programProviderInvoked = false;
 
       // mimic a third party library providing a ts.Program instance.
@@ -868,7 +878,7 @@ describe('parser', () => {
   });
 
   describe('componentNameResolver', () => {
-    it('should override default behavior', () => {
+    test('should override default behavior', () => {
       const [parsed] = parse(
         fixturePath('StatelessDisplayNameStyledComponent'),
         {
@@ -880,7 +890,7 @@ describe('parser', () => {
       assert.equal(parsed.displayName, 'StatelessDisplayNameStyledComponent');
     });
 
-    it('should fallback to default behavior without a match', () => {
+    test('should fallback to default behavior without a match', () => {
       const [parsed] = parse(
         fixturePath('StatelessDisplayNameStyledComponent'),
         {
@@ -892,7 +902,7 @@ describe('parser', () => {
   });
 
   describe('methods', () => {
-    it('should properly parse methods', () => {
+    test('should properly parse methods', () => {
       const [parsed] = parse(fixturePath('ColumnWithMethods'));
       const methods = parsed.methods;
       const myCoolMethod = methods[0];
@@ -922,7 +932,7 @@ describe('parser', () => {
       });
     });
 
-    it('should properly parse static methods', () => {
+    test('should properly parse static methods', () => {
       const [parsed] = parse(fixturePath('ColumnWithStaticMethods'));
       const methods = parsed.methods;
 
@@ -930,19 +940,19 @@ describe('parser', () => {
       assert.deepEqual(methods[0].modifiers, ['static']);
     });
 
-    it('should handle method with no information', () => {
+    test('should handle method with no information', () => {
       const [parsed] = parse(fixturePath('ColumnWithMethods'));
       const methods = parsed.methods;
       assert.equal(methods[1].name, 'myBasicMethod');
     });
 
-    it('should handle arrow function', () => {
+    test('should handle arrow function', () => {
       const [parsed] = parse(fixturePath('ColumnWithMethods'));
       const methods = parsed.methods;
       assert.equal(methods[2].name, 'myArrowFunction');
     });
 
-    it('should not parse functions not marked with @public', () => {
+    test('should not parse functions not marked with @public', () => {
       const [parsed] = parse(fixturePath('ColumnWithMethods'));
       const methods = parsed.methods;
       assert.equal(
@@ -953,28 +963,28 @@ describe('parser', () => {
   });
 
   describe('getDefaultExportForFile', () => {
-    it('should filter out forbidden symbols', () => {
+    test('should filter out forbidden symbols', () => {
       const result = getDefaultExportForFile({
         fileName: 'a-b'
       } as ts.SourceFile);
       assert.equal(result, 'ab');
     });
 
-    it('should remove leading non-letters', () => {
+    test('should remove leading non-letters', () => {
       const result = getDefaultExportForFile({
         fileName: '---123aba'
       } as ts.SourceFile);
       assert.equal(result, 'aba');
     });
 
-    it('should preserve numbers in the middle', () => {
+    test('should preserve numbers in the middle', () => {
       const result = getDefaultExportForFile({
         fileName: '1Body2Text3'
       } as ts.SourceFile);
       assert.equal(result, 'Body2Text3');
     });
 
-    it('should not return empty string', () => {
+    test('should not return empty string', () => {
       const result = getDefaultExportForFile({
         fileName: '---123'
       } as ts.SourceFile);
@@ -983,7 +993,7 @@ describe('parser', () => {
   });
 
   describe('issues tests', () => {
-    it('188', () => {
+    test('188', () => {
       check(
         'Issue188',
         {

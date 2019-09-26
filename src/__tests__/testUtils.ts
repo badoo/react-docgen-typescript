@@ -43,7 +43,7 @@ export function fixturePath(componentName: string) {
 
 export function check(
   componentName: string,
-  expected: ExpectedComponents,
+  expected: ExpectedComponents | null,
   exactProperties: boolean = true,
   description?: string | null,
   parserOpts?: ParserOptions
@@ -54,10 +54,14 @@ export function check(
 
 export function checkComponent(
   actual: ComponentDoc[],
-  expected: ExpectedComponents,
+  expected: ExpectedComponents | null,
   exactProperties: boolean = true,
   description?: string | null
 ) {
+  if (expected === null) {
+    expect(actual).toMatchSnapshot();
+    return;
+  }
   const expectedComponentNames = Object.getOwnPropertyNames(expected);
   assert.equal(
     actual.length,

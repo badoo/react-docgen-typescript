@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parser should parse nested types 1`] = `
+Array [
+  Object {
+    "description": "",
+    "displayName": "ComponentWithNestedTypes",
+    "methods": Array [],
+    "props": Object {
+      "gallery": Object {
+        "deepType": Array [
+          Object {
+            "documentation": "",
+            "isOptional": false,
+            "name": "mainImage",
+            "type": "Image",
+            "value": Array [
+              Object {
+                "documentation": "src description",
+                "isOptional": false,
+                "name": "src",
+                "type": "string",
+                "value": Object {
+                  "documentation": "",
+                  "name": "string",
+                  "type": "string",
+                  "value": "string",
+                },
+              },
+              Object {
+                "documentation": "showLoading description",
+                "isOptional": false,
+                "name": "showLoading",
+                "type": "boolean",
+                "value": Object {
+                  "documentation": "",
+                  "name": "boolean",
+                  "type": "boolean",
+                  "value": "true | false",
+                },
+              },
+              Object {
+                "documentation": "",
+                "isOptional": false,
+                "name": "type",
+                "type": "ImageType",
+                "value": Object {
+                  "documentation": "",
+                  "name": "ImageType",
+                  "type": "enum",
+                  "value": Array [
+                    Object {
+                      "documentation": "",
+                      "name": "JPG",
+                      "type": "number",
+                      "value": 0,
+                    },
+                    Object {
+                      "documentation": "",
+                      "name": "WEBP",
+                      "type": "number",
+                      "value": 1,
+                    },
+                    Object {
+                      "documentation": "",
+                      "name": "GIF",
+                      "type": "number",
+                      "value": 2,
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+          Object {
+            "documentation": "",
+            "isOptional": false,
+            "name": "pages",
+            "type": "Page[]",
+            "value": Object {
+              "documentation": "",
+              "name": "Page[]",
+              "type": "array",
+              "value": Array [
+                Array [
+                  Object {
+                    "documentation": "",
+                    "isOptional": false,
+                    "name": "index",
+                    "type": "number",
+                    "value": Object {
+                      "documentation": "",
+                      "name": "number",
+                      "type": "string",
+                      "value": "number",
+                    },
+                  },
+                  Object {
+                    "documentation": "",
+                    "isOptional": false,
+                    "name": "image",
+                    "type": "Image",
+                    "value": Array [
+                      Object {
+                        "documentation": "src description",
+                        "isOptional": false,
+                        "name": "src",
+                        "type": "string",
+                        "value": Object {
+                          "documentation": "",
+                          "name": "string",
+                          "type": "string",
+                          "value": "string",
+                        },
+                      },
+                      Object {
+                        "documentation": "showLoading description",
+                        "isOptional": false,
+                        "name": "showLoading",
+                        "type": "boolean",
+                        "value": Object {
+                          "documentation": "",
+                          "name": "boolean",
+                          "type": "boolean",
+                          "value": "true | false",
+                        },
+                      },
+                      Object {
+                        "documentation": "",
+                        "isOptional": false,
+                        "name": "type",
+                        "type": "ImageType",
+                        "value": Object {
+                          "documentation": "",
+                          "name": "ImageType",
+                          "type": "enum",
+                          "value": Array [
+                            Object {
+                              "documentation": "",
+                              "name": "JPG",
+                              "type": "number",
+                              "value": 0,
+                            },
+                            Object {
+                              "documentation": "",
+                              "name": "WEBP",
+                              "type": "number",
+                              "value": 1,
+                            },
+                            Object {
+                              "documentation": "",
+                              "name": "GIF",
+                              "type": "number",
+                              "value": 2,
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+        "defaultValue": null,
+        "description": "",
+        "name": "gallery",
+        "parent": undefined,
+        "required": true,
+        "type": Object {
+          "name": "Gallery",
+        },
+      },
+    },
+  },
+]
+`;

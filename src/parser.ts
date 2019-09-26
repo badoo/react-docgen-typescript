@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
+import { serializeType, DocEntryType } from '@magiclab/typescript-docgen';
 
 import { buildFilter } from './buildFilter';
 
@@ -29,6 +30,7 @@ export interface PropItem {
   description: string;
   defaultValue: any;
   parent?: ParentType;
+  deepType?: DocEntryType | DocEntryType[] | null;
 }
 
 export interface Method {
@@ -79,6 +81,9 @@ export interface ParserOptions {
   propFilter?: StaticPropFilter | PropFilter;
   componentNameResolver?: ComponentNameResolver;
   shouldExtractLiteralValuesFromEnum?: boolean;
+  shouldExtractNestedDocs?: boolean;
+  maxDepth?: number;
+  maxProps?: number;
 }
 
 export interface StaticPropFilter {
@@ -135,7 +140,9 @@ export function withCustomConfig(
   );
 
   if (error !== undefined) {
-    const errorText = `Cannot load custom tsconfig.json from provided path: ${tsconfigPath}, with error code: ${error.code}, message: ${error.messageText}`;
+    const errorText = `Cannot load custom tsconfig.json from provided path: ${tsconfigPath}, with error code: ${
+      error.code
+    }, message: ${error.messageText}`;
     throw new Error(errorText);
   }
 
@@ -196,6 +203,9 @@ export class Parser {
   private checker: ts.TypeChecker;
   private propFilter: PropFilter;
   private shouldExtractLiteralValuesFromEnum: boolean;
+  private shouldExtractNestedDocs: boolean;
+  private maxDepth: number;
+  private maxProps: number;
 
   constructor(program: ts.Program, opts: ParserOptions) {
     this.checker = program.getTypeChecker();
@@ -203,6 +213,9 @@ export class Parser {
     this.shouldExtractLiteralValuesFromEnum = Boolean(
       opts.shouldExtractLiteralValuesFromEnum
     );
+    this.shouldExtractNestedDocs = Boolean(opts.shouldExtractNestedDocs);
+    this.maxDepth = Number(opts.maxDepth);
+    this.maxProps = Number(opts.maxProps);
   }
 
   public getComponentInfo(
@@ -518,13 +531,28 @@ export class Parser {
 
       const parent = getParentType(prop);
 
+      let deepType = null;
+
+      if (this.shouldExtractNestedDocs) {
+        deepType = serializeType(
+          {
+            maxDepth: this.maxDepth,
+            maxProps: this.maxProps,
+            checker: this.checker,
+            serialisedTypes: []
+          },
+          propType
+        );
+      }
+
       result[propName] = {
         defaultValue,
         description: jsDocComment.fullComment,
         name: propName,
         parent,
         required: !isOptional && !hasCodeBasedDefault,
-        type: this.getDocgenType(propType)
+        type: this.getDocgenType(propType),
+        deepType
       };
     });
 
