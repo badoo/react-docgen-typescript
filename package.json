@@ -1,7 +1,7 @@
 {
   "name": "@magiclab/react-docgen-typescript",
   "private": false,
-  "version": "1.14.1",
+  "version": "1.14.2",
   "description": "",
   "homepage": "https://github.com/badoo/react-docgen-typescript/",
   "bugs": "https://github.com/badoo/react-docgen-typescript/issues",
@@ -23,11 +23,12 @@
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\""
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "@magiclab/typescript-docgen": "0.0.4"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-typescript": "^7.6.0",
-    "@magiclab/typescript-docgen": "0.0.4",
     "@types/chai": "^4.1.0",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.137",
