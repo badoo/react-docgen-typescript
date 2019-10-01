@@ -13,6 +13,7 @@ Array [
           "isOptional": false,
           "name": "gallery",
           "type": "shape",
+          "typeName": "Gallery",
           "value": Array [],
         },
         "defaultValue": null,
