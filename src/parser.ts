@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
-import { serializeType, DocEntryType } from '@magiclab/typescript-docgen';
+import { DocEntryType, serializeSymbol } from '@magiclab/typescript-docgen';
 
 import { buildFilter } from './buildFilter';
 
@@ -534,14 +534,14 @@ export class Parser {
       let deepType = null;
 
       if (this.shouldExtractNestedDocs) {
-        deepType = serializeType(
+        deepType = serializeSymbol(
           {
             maxDepth: this.maxDepth,
             maxProps: this.maxProps,
             checker: this.checker,
             serialisedTypes: []
           },
-          propType
+          prop
         );
       }
 
