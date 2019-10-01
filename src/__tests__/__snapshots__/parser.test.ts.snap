@@ -10,69 +10,55 @@ Array [
       "gallery": Object {
         "deepType": Object {
           "documentation": "",
-          "name": "Gallery",
-          "type": "Gallery",
+          "isOptional": false,
+          "name": "gallery",
+          "type": "shape",
           "value": Array [
             Object {
               "documentation": "",
               "isOptional": false,
               "name": "mainImage",
-              "type": "Image",
+              "type": "shape",
               "value": Array [
                 Object {
                   "documentation": "src description",
                   "isOptional": false,
                   "name": "src",
                   "type": "string",
-                  "value": Object {
-                    "documentation": "",
-                    "name": "string",
-                    "type": "string",
-                    "value": "string",
-                  },
+                  "value": "string",
                 },
                 Object {
                   "documentation": "showLoading description",
                   "isOptional": false,
                   "name": "showLoading",
                   "type": "boolean",
-                  "value": Object {
-                    "documentation": "",
-                    "name": "boolean",
-                    "type": "boolean",
-                    "value": "true | false",
-                  },
+                  "value": "true | false",
                 },
                 Object {
                   "documentation": "",
                   "isOptional": false,
                   "name": "type",
-                  "type": "ImageType",
-                  "value": Object {
-                    "documentation": "",
-                    "name": "ImageType",
-                    "type": "enum",
-                    "value": Array [
-                      Object {
-                        "documentation": "",
-                        "name": "JPG",
-                        "type": "number",
-                        "value": 0,
-                      },
-                      Object {
-                        "documentation": "",
-                        "name": "WEBP",
-                        "type": "number",
-                        "value": 1,
-                      },
-                      Object {
-                        "documentation": "",
-                        "name": "GIF",
-                        "type": "number",
-                        "value": 2,
-                      },
-                    ],
-                  },
+                  "type": "enum",
+                  "value": Array [
+                    Object {
+                      "documentation": "",
+                      "name": "JPG",
+                      "type": "number",
+                      "value": 0,
+                    },
+                    Object {
+                      "documentation": "",
+                      "name": "WEBP",
+                      "type": "number",
+                      "value": 1,
+                    },
+                    Object {
+                      "documentation": "",
+                      "name": "GIF",
+                      "type": "number",
+                      "value": 2,
+                    },
+                  ],
                 },
               ],
             },
@@ -80,91 +66,71 @@ Array [
               "documentation": "",
               "isOptional": false,
               "name": "pages",
-              "type": "Page[]",
-              "value": Object {
-                "documentation": "",
-                "name": "Page[]",
-                "type": "array",
-                "value": Array [
-                  Array [
+              "type": "array",
+              "value": Array [
+                Object {
+                  "documentation": "",
+                  "name": "Page",
+                  "type": "shape",
+                  "value": Array [
                     Object {
                       "documentation": "",
                       "isOptional": false,
                       "name": "index",
-                      "type": "number",
-                      "value": Object {
-                        "documentation": "",
-                        "name": "number",
-                        "type": "string",
-                        "value": "number",
-                      },
+                      "type": "string",
+                      "value": "number",
                     },
                     Object {
                       "documentation": "",
                       "isOptional": false,
                       "name": "image",
-                      "type": "Image",
+                      "type": "shape",
                       "value": Array [
                         Object {
                           "documentation": "src description",
                           "isOptional": false,
                           "name": "src",
                           "type": "string",
-                          "value": Object {
-                            "documentation": "",
-                            "name": "string",
-                            "type": "string",
-                            "value": "string",
-                          },
+                          "value": "string",
                         },
                         Object {
                           "documentation": "showLoading description",
                           "isOptional": false,
                           "name": "showLoading",
                           "type": "boolean",
-                          "value": Object {
-                            "documentation": "",
-                            "name": "boolean",
-                            "type": "boolean",
-                            "value": "true | false",
-                          },
+                          "value": "true | false",
                         },
                         Object {
                           "documentation": "",
                           "isOptional": false,
                           "name": "type",
-                          "type": "ImageType",
-                          "value": Object {
-                            "documentation": "",
-                            "name": "ImageType",
-                            "type": "enum",
-                            "value": Array [
-                              Object {
-                                "documentation": "",
-                                "name": "JPG",
-                                "type": "number",
-                                "value": 0,
-                              },
-                              Object {
-                                "documentation": "",
-                                "name": "WEBP",
-                                "type": "number",
-                                "value": 1,
-                              },
-                              Object {
-                                "documentation": "",
-                                "name": "GIF",
-                                "type": "number",
-                                "value": 2,
-                              },
-                            ],
-                          },
+                          "type": "enum",
+                          "value": Array [
+                            Object {
+                              "documentation": "",
+                              "name": "JPG",
+                              "type": "number",
+                              "value": 0,
+                            },
+                            Object {
+                              "documentation": "",
+                              "name": "WEBP",
+                              "type": "number",
+                              "value": 1,
+                            },
+                            Object {
+                              "documentation": "",
+                              "name": "GIF",
+                              "type": "number",
+                              "value": 2,
+                            },
+                          ],
                         },
                       ],
                     },
                   ],
-                ],
-              },
+                },
+              ],
             },
           ],
         },
