@@ -1,7 +1,7 @@
 {
   "name": "@magiclab/react-docgen-typescript",
   "private": false,
-  "version": "1.14.7",
+  "version": "1.14.8",
   "description": "",
   "homepage": "https://github.com/badoo/react-docgen-typescript/",
   "bugs": "https://github.com/badoo/react-docgen-typescript/issues",

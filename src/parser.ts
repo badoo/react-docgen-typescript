@@ -214,8 +214,8 @@ export class Parser {
       opts.shouldExtractLiteralValuesFromEnum
     );
     this.shouldExtractNestedDocs = Boolean(opts.shouldExtractNestedDocs);
-    this.maxDepth = Number(opts.maxDepth);
-    this.maxProps = Number(opts.maxProps);
+    this.maxDepth = opts.maxDepth ? Number(opts.maxDepth) : 5;
+    this.maxProps = opts.maxDepth ? Number(opts.maxProps) : 30;
   }
 
   public getComponentInfo(
