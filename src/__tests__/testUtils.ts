@@ -1,12 +1,7 @@
 import { assert } from 'chai';
 import * as path from 'path';
 import { isEqual } from 'lodash';
-import {
-  ComponentDoc,
-  defaultParserOpts,
-  parse,
-  ParserOptions
-} from '../parser';
+import { ComponentDoc, parse, ParserOptions } from '../parser';
 
 export interface ExpectedComponents {
   [key: string]: ExpectedComponent;

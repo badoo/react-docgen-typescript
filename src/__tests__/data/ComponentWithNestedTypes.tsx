@@ -10,8 +10,8 @@ type Image = {
   /** src description */
   src: string;
   /** showLoading description */
-  showLoading: boolean;
-  type: ImageType;
+  showLoading?: boolean;
+  type?: ImageType;
 };
 
 type Page = {
@@ -21,13 +21,20 @@ type Page = {
 
 type Gallery = {
   mainImage: Image;
-  pages: Page[];
+  pages?: Page[];
 };
 
 type Props = {
   gallery: Gallery;
+  status?: 'online' | 'idle' | 'hidden';
 };
 
-export const Stateless: React.StatelessComponent<Props> = props => (
-  <div>test</div>
-);
+export const Stateless: React.SFC<Props> = props => <div>test</div>;
+
+Stateless.defaultProps = {
+  gallery: {
+    mainImage: {
+      src: '<src>'
+    }
+  }
+};

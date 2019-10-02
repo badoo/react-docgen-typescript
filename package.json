@@ -1,7 +1,7 @@
 {
   "name": "@magiclab/react-docgen-typescript",
   "private": false,
-  "version": "1.14.8",
+  "version": "1.14.9",
   "description": "",
   "homepage": "https://github.com/badoo/react-docgen-typescript/",
   "bugs": "https://github.com/badoo/react-docgen-typescript/issues",
@@ -24,7 +24,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@magiclab/typescript-docgen": "0.0.9"
+    "@magiclab/typescript-docgen": "0.0.10"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.6.2",

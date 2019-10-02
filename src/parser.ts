@@ -26,11 +26,10 @@ export interface Props extends StringIndexedObject<PropItem> {}
 export interface PropItem {
   name: string;
   required: boolean;
-  type: PropItemType;
+  type: PropItemType | DocEntryType;
   description: string;
   defaultValue: any;
   parent?: ParentType;
-  deepType?: DocEntryType | DocEntryType[] | null;
 }
 
 export interface Method {
@@ -215,7 +214,7 @@ export class Parser {
     );
     this.shouldExtractNestedDocs = Boolean(opts.shouldExtractNestedDocs);
     this.maxDepth = opts.maxDepth ? Number(opts.maxDepth) : 5;
-    this.maxProps = opts.maxDepth ? Number(opts.maxProps) : 30;
+    this.maxProps = opts.maxProps ? Number(opts.maxProps) : 30;
   }
 
   public getComponentInfo(
@@ -509,12 +508,6 @@ export class Parser {
     propertiesOfProps.forEach(prop => {
       const propName = prop.getName();
 
-      // Find type of prop by looking in context of the props object itself.
-      const propType = this.checker.getTypeOfSymbolAtLocation(
-        prop,
-        propsObj.valueDeclaration!
-      );
-
       // tslint:disable-next-line:no-bitwise
       const isOptional = (prop.getFlags() & ts.SymbolFlags.Optional) !== 0;
 
@@ -531,10 +524,10 @@ export class Parser {
 
       const parent = getParentType(prop);
 
-      let deepType = null;
+      let type: DocEntryType | PropItemType;
 
       if (this.shouldExtractNestedDocs) {
-        deepType = serializeSymbol(
+        type = serializeSymbol(
           {
             maxDepth: this.maxDepth,
             maxProps: this.maxProps,
@@ -542,6 +535,14 @@ export class Parser {
             serialisedTypes: []
           },
           prop
+        );
+      } else {
+        // Find type of prop by looking in context of the props object itself.
+        type = this.getDocgenType(
+          this.checker.getTypeOfSymbolAtLocation(
+            prop,
+            propsObj.valueDeclaration!
+          )
         );
       }
 
@@ -551,8 +552,7 @@ export class Parser {
         name: propName,
         parent,
         required: !isOptional && !hasCodeBasedDefault,
-        type: this.getDocgenType(propType),
-        deepType
+        type
       };
     });
 
